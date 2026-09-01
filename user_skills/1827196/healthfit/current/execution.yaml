@@ -1,0 +1,46 @@
+name: healthfit
+description: "Personal comprehensive health management system integrating Western medicine and TCM - fitness coaching, nutrition advice, TCM constitution, tongue diagnosis, sexual health"
+version: "3.0.1"
+runner: llm_tool_loop
+entrypoint: ""
+input_schema:
+  type: object
+  properties:
+    query:
+      type: string
+      description: "用户的健康管理问题"
+timeout: 120
+keywords:
+  - 健身
+  - 训练
+  - 营养
+  - 中医
+  - 体质
+  - 舌诊
+  - 节气养生
+  - 健康档案
+  - 训练计划
+  - 饮食建议
+  - 增肌
+  - 减脂
+  - workout
+  - training
+  - nutrition
+  - TCM
+  - tongue
+  - constitution
+  - 运动
+  - 性健康
+  - 体重
+triggers:
+  - create my profile
+  - log today's workout
+  - what to eat today
+  - nutrition advice
+  - training plan
+  - weekly summary
+  - my constitution
+  - tongue diagnosis
+  - solar term wellness
+  - weight tracking
+  - health profile

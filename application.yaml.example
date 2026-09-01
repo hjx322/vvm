@@ -1,0 +1,43 @@
+# ==========================================================
+# application.yaml 模板（示例）
+# 复制为 application.yaml 并填入你自己的真实凭据。
+# 本文件（example）可提交；真实 application.yaml 切勿提交！
+# ==========================================================
+
+llm:
+  default: "qwen-plus"                                        # 默认对话模型
+  dashscope:
+    api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    api_key: "<YOUR_DASHSCOPE_API_KEY>"                       # 阿里云百炼 DashScope Key
+
+db:
+  mysql:                                                      # 主库（agent/checkpoint/技能元数据）
+    host: "<YOUR_MYSQL_HOST>"
+    username: "<YOUR_MYSQL_USER>"
+    password: "<YOUR_MYSQL_PASSWORD>"
+    port: 3306
+    db: "vvm_digital_smart_doctor_agent"
+  patient_mysql:                                              # 患者 CRM 库（PHI，最小权限访问）
+    host: "<YOUR_MYSQL_HOST>"
+    username: "<YOUR_MYSQL_USER>"
+    password: "<YOUR_MYSQL_PASSWORD>"
+    port: 3306
+    db: "vvm_hn_skin_crm"
+
+db_crm:
+  hn: "mysql+pymysql://<USER>:<PASSWORD>@<HOST>:3306/vvm_hn_skin_crm?autocommit=true&charset=utf8mb4"
+
+vector:                                                       # Milvus 向量库（RAG 医学知识）
+  host: "<YOUR_MILVUS_HOST>"
+  port: "19530"
+  user: "root"
+  password: "<YOUR_MILVUS_PASSWORD>"
+  db_name: "digital_smart_doctor_agent"
+
+asr:                                                          # 腾讯云语音识别
+  ten_secret_id: "<YOUR_TENCENT_SECRET_ID>"
+  ten_secret_key: "<YOUR_TENCENT_SECRET_KEY>"
+
+search:
+  tavily:
+    api_key: "<YOUR_TAVILY_API_KEY>"                          # 互联网搜索 Key

@@ -1,0 +1,27 @@
+name: clawhub_weather-cn
+description: "天气查询技能，支持按城市名查询天气预报"
+version: "1.0"
+runner: subprocess_script
+entrypoint: weather-cn.sh
+input_schema:
+  type: object
+  properties:
+    city:
+      type: string
+      description: "城市名称"
+  required: [city]
+timeout: 30
+keywords:
+  - 天气
+  - 气温
+  - 下雨
+  - 刮风
+  - 阴天
+  - 晴天
+  - 冷
+  - 热
+triggers:
+  - 今天天气
+  - 天气预报
+  - 天气怎么样
+  - 会下雨吗

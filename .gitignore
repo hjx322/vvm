@@ -1,0 +1,39 @@
+# ===== 敏感配置（绝不允许入库）=====
+application.yaml
+.env
+*.local.yaml
+
+# ===== 患者数据 / 二进制数据（PHI）=====
+data/dialogs/
+data/test_dialog/
+data/*.xlsx
+data/*.amr
+data/eval.jsonl
+data/qa_vector_data.xlsx
+data/datasets/vvm-demo-digital-smart-doctor-agent.code-workspace
+
+# ===== 上传 / 运行产物 =====
+uploads/
+derma_image/
+runs/
+%USERPROFILE%/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# ===== 前端 =====
+frontend/node_modules/
+frontend/dist/
+
+# ===== 技能本地结果（权重文件如需入库请自行决定）=====
+.claude/skills/derma_image/runs/
+.claude/skills/derma_image/references/runs/
+
+# ===== 本地工具 / IDE =====
+.vscode/
+.claude/settings.local.json
+.clawhub/
+.cli_history
