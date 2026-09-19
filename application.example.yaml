@@ -1,0 +1,77 @@
+# ============================================================================
+#  application.example.yaml —— 配置模板（可以提交到 GitHub，里面没有任何真实密钥）
+#
+#  使用方法：
+#    1. 复制本文件为 application.yaml（application.yaml 已被 .gitignore 忽略）
+#         PowerShell:  Copy-Item application.example.yaml application.yaml
+#         bash:        cp application.example.yaml application.yaml
+#    2. 复制 .env.example 为 .env，把里面的占位值换成你自己的真实密钥
+#         PowerShell:  Copy-Item .env.example .env
+#    3. 直接启动即可，本程序会在启动时自动读取项目根目录的 .env
+#
+#  取值顺序：真实环境变量  >  项目根目录 .env 文件  >  ${VAR:-后面的默认值}
+#  写法说明：${VAR}            → 从环境变量取值，没设置就展开成空字符串
+#            ${VAR:-默认值}    → 没设置时用默认值
+#
+#  ⚠️ 注意：db_crm.hn 是一个数据库连接串(URL)，如果密码里含有
+#     @ : / ? # [ ] 这些字符，必须先做 URL 编码（如 # → %23），否则连接串会被截断。
+# ============================================================================
+
+llm:
+  default: "qwen-plus"
+  dashscope:
+    api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    api_key: "${DASHSCOPE_API_KEY}"        # 阿里云百炼 DashScope 密钥，形如 sk-xxxxxxxx
+  roles: # 多 Agent 按角色分级模型（supervisor 用 qwen-max 保结构化决策）
+    supervisor: { model: "qwen-max", temperature: 0.0 }
+    diagnosis:  { model: "qwen-plus", temperature: 0.2 }
+    safety:     { model: "qwen-plus", temperature: 0.0 }
+    followup:   { model: "qwen-plus", temperature: 0.2 }
+    worker:     { model: "qwen-plus", temperature: 0.2 }
+
+db:
+  mysql:                                   # 业务库：存 agent / skill 配置
+    host: "${MYSQL_HOST:-127.0.0.1}"
+    username: "${MYSQL_USER:-root}"
+    password: "${MYSQL_PASSWORD}"
+    port: ${MYSQL_PORT:-3306}
+    db: "${MYSQL_DB:-vvm_digital_smart_doctor_agent}"
+  patient_mysql:                           # 患者库：存病历等 PHI（生产环境务必做访问审计）
+    host: "${PATIENT_MYSQL_HOST:-127.0.0.1}"
+    username: "${PATIENT_MYSQL_USER:-root}"
+    password: "${PATIENT_MYSQL_PASSWORD}"
+    port: ${PATIENT_MYSQL_PORT:-3306}
+    db: "${PATIENT_MYSQL_DB:-vvm_hn_skin_crm}"
+
+db_crm:                                    # SQLAlchemy 连接串，供 mysql_query 技能使用
+  hn: "mysql+pymysql://${PATIENT_MYSQL_USER:-root}:${PATIENT_MYSQL_PASSWORD}@${PATIENT_MYSQL_HOST:-127.0.0.1}:${PATIENT_MYSQL_PORT:-3306}/${PATIENT_MYSQL_DB:-vvm_hn_skin_crm}?autocommit=true&charset=utf8mb4"
+
+vector: # RAG 向量库（Milvus）
+  host: "${MILVUS_HOST:-127.0.0.1}"
+  port: "${MILVUS_PORT:-19530}"
+  user: "${MILVUS_USER:-root}"
+  password: "${MILVUS_PASSWORD}"
+  db_name: "${MILVUS_DB:-digital_smart_doctor_agent}"
+
+asr: # 腾讯云语音识别（data/datasets/ten_asr.py 使用）
+  ten_secret_id: "${TENCENT_SECRET_ID}"
+  ten_secret_key: "${TENCENT_SECRET_KEY}"
+
+search:
+  tavily:
+    api_key: "${TAVILY_API_KEY}"
+
+multi_agent: # 多 Agent（主管-子 agent）编排（恒开启，无 legacy 开关）
+  worker_timeout: 60
+  management_user_id: "${MANAGEMENT_USER_ID:-1827196}"  # 子 agent-技能配置归属的管理租户（勿用患者号）
+  always_query_patient: True  # 强制每次对话都查患者病历（supervisor 漏选时由 orchestrator 兜底）
+  # 各子 agent 开关：缺省 key=启用，显式 false 才关闭
+  agents:
+    patient_knowledge_agent: true  # 原 patient_worker/knowledge_worker 合并
+    search_agent: true
+    imaging_agent: true
+    safety_agent: true
+    general_agent: true  # 通用助手：闲聊/常识/资讯/天气等非医疗或混合问题也可用技能
+
+emergency: # 急症前置硬规则（agent/utils/emergency.py）：命中即跳过整张图直接给急诊指引
+  enabled: true  # 默认开启为安全底线；做端到端评测想跑完整链路时可临时置 false

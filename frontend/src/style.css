@@ -1,0 +1,107 @@
+/* 全局样式：定义主题变量，供各组件引用。
+   医疗清新风：以医疗青蓝为主色，浅色冰蓝白 / 深色深海军蓝，蓝青渐变为主视觉。 */
+:root {
+  /* 文本 */
+  --text: #5b6b7b;                          /* 次要文本 */
+  --text-h: #1f2d3d;                        /* 主文本（深蓝灰） */
+  --text-soft: #8aa0b4;                     /* 弱提示文本 */
+
+  /* 背景与面板 */
+  --bg: #f5f8fc;                            /* 页面底 */
+  --bg-grad-1: #eef5fd;                     /* 背景渐变起点（冰蓝） */
+  --bg-grad-2: #f7fbff;                     /* 背景渐变终点 */
+  --panel: #ffffff;                         /* 卡片/气泡底 */
+  --border: #e3ecf5;                        /* 边框 */
+
+  /* 医疗主色（青蓝） */
+  --accent: #2f80ed;                        /* 主操作/发送按钮 */
+  --accent-2: #38c6c6;                      /* 辅助强调（医疗青） */
+  --accent-grad: linear-gradient(135deg, #2f80ed, #38c6c6); /* 品牌渐变：蓝→青 */
+  --accent-bg: rgba(47, 128, 237, 0.10);    /* 主色淡底 */
+  --accent-border: rgba(47, 128, 237, 0.35);
+
+  /* 用户气泡渐变 */
+  --user-grad: linear-gradient(135deg, #2f80ed, #38b6c6);
+
+  /* 阴影层次 */
+  --shadow-sm: 0 1px 2px rgba(23, 43, 77, 0.06);
+  --shadow-md: 0 6px 18px rgba(23, 43, 77, 0.08);
+  --shadow-lg: 0 12px 32px rgba(23, 43, 77, 0.14);
+
+  /* 圆角 */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  /* 医疗品牌点缀色 */
+  --med-green: #2fc98a;                     /* 在线/健康 */
+  --warn: #f0a24b;
+  --danger: #ef5b6d;
+
+  font-family: system-ui, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color-scheme: light;
+  color: var(--text-h);
+  background: var(--bg-grad-1);
+  line-height: 1.5;
+}
+
+/* 跟随系统深色模式（仅重定义颜色令牌，结构不变） */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #a6b7c9;
+    --text-h: #eef3f9;
+    --text-soft: #6b7f93;
+    --bg: #0f1725;
+    --bg-grad-1: #0f1725;
+    --bg-grad-2: #131f31;
+    --panel: #1b2736;
+    --border: #2b3b50;
+    --accent: #5d9bf5;
+    --accent-2: #4fd0d0;
+    --accent-grad: linear-gradient(135deg, #5d9bf5, #4fd0d0);
+    --accent-bg: rgba(93, 155, 245, 0.16);
+    --accent-border: rgba(93, 155, 245, 0.5);
+    --user-grad: linear-gradient(135deg, #5d9bf5, #4fc3c3);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+/* 医疗清新风页面背景：冰蓝→白柔和渐变 */
+body {
+  background: linear-gradient(160deg, var(--bg-grad-1), var(--bg-grad-2) 55%, var(--bg));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 细化全局滚动条，与主题一致 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-soft);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#app {
+  height: 100vh;
+}

@@ -1,0 +1,6 @@
+{"id": "eval_0001", "file": "示例患者A-20250101_000000_00000000.xlsx", "question": "你好医生，我最近头皮屑比较多，需要用什么药？", "category": "chat", "expected_skills": [], "expected_entities": []}
+{"id": "eval_0002", "file": "示例患者B-20250101_000000_00000001.xlsx", "question": "我这个是不是雄激素性脱发？家里父亲也脱发", "category": "single_source", "expected_skills": ["milvus_query"], "expected_entities": []}
+{"id": "eval_0003", "file": "示例患者C-20250101_000000_00000002.xlsx", "question": "我之前开的米诺地尔还能继续用吗，同时用不用忌口", "category": "followup", "expected_skills": ["milvus_query", "mysql_query"], "expected_entities": []}
+{"id": "eval_0004", "file": "示例患者D-20250101_000000_00000003.xlsx", "question": "最近这个病有没有新的治疗方案？帮我查一下最新进展", "category": "multi_source", "expected_skills": ["milvus_query", "web_search"], "expected_entities": []}
+{"id": "eval_0005", "file": "示例患者E-20250101_000000_00000004.xlsx", "question": "这个药和我正在吃的降压药一起吃会不会有冲突？", "category": "medication_safety", "expected_skills": ["milvus_query"], "expected_entities": []}
+{"id": "eval_0006", "file": "示例患者F-20250101_000000_00000005.xlsx", "question": "（附患处照片）这个皮疹是什么？", "category": "image", "expected_skills": ["derma_image"], "expected_entities": []}

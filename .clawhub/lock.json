@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "skills": {
+    "weather": {
+      "version": "1.0.0",
+      "installedAt": 1773631996257
+    },
+    "google-weather": {
+      "version": "1.2.0",
+      "installedAt": 1773375205626
+    },
+    "weather-cn": {
+      "version": "1.0.1",
+      "installedAt": 1773384808310
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1773735329707
+    }
+  }
+}
