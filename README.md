@@ -322,7 +322,7 @@ npm run dev
 ---
 
 ## 💻 使用方式
-
+![image](https://github.com/hjx322/image/blob/main/1.png?raw=True)
 ### 方式一：Web 界面（推荐）
 
 `http://localhost:5173`，支持：
